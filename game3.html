@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Match AR! - GATE MISSION</title>
+    <title>Match AR! - CAFE MISSION</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
@@ -24,23 +24,25 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* 棕色主題背景 */
         .cyber-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.9) 100%);
+            background: linear-gradient(135deg, #2c1810 0%, #3a2418 100%);
             z-index: -2;
         }
 
+        /* 棕色能量波動 */
         .energy-wave {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,51,51,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(205, 133, 63, 0.2) 0%, transparent 70%);
             animation: energyPulse 4s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
@@ -52,7 +54,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 4px);
+            background: repeating-linear-gradient(0deg, rgba(205, 133, 63, 0.1) 0px, rgba(205, 133, 63, 0.1) 2px, transparent 2px, transparent 4px);
             pointer-events: none;
             z-index: 10;
         }
@@ -71,13 +73,14 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        /* 棕色主題邊框和文字 */
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 15px;
-            background: rgba(0,0,0,0.9);
-            border: 1px solid #ff3333;
+            background: rgba(30, 20, 15, 0.9);
+            border: 1px solid #cd7f32;
             margin-bottom: 15px;
             position: relative;
             flex-shrink: 0;
@@ -87,9 +90,9 @@
             position: absolute;
             top: -8px;
             left: 10px;
-            background: #000;
+            background: #2c1810;
             padding: 0 8px;
-            color: #ff3333;
+            color: #cd7f32;
             font-size: 10px;
         }
 
@@ -102,60 +105,60 @@
             justify-content: space-between;
             font-size: 12px;
             margin-bottom: 5px;
-            color: #ff9900;
+            color: #e0a878;
         }
         .energy-bar-bg {
             width: 100%;
             height: 20px;
-            background: #111;
-            border: 1px solid #ff3333;
+            background: #1a120e;
+            border: 1px solid #cd7f32;
             overflow: hidden;
         }
         .energy-fill {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #ff3333, #ff9900);
+            background: linear-gradient(90deg, #cd7f32, #e0a878);
             transition: width 0.3s ease;
         }
 
         .location-header {
             text-align: center;
             padding: 15px;
-            background: rgba(255,51,51,0.2);
-            border: 1px solid #ff3333;
+            background: rgba(205, 127, 50, 0.2);
+            border: 1px solid #cd7f32;
             margin-bottom: 15px;
             flex-shrink: 0;
         }
         .location-name {
             font-size: 24px;
             letter-spacing: 3px;
-            color: #ff3333;
+            color: #e0a878;
         }
         .level-badge {
             font-size: 14px;
-            color: #ff9900;
+            color: #cd7f32;
             margin-top: 5px;
         }
 
         .timer {
             font-size: 48px;
             font-weight: 900;
-            color: #ff3333;
-            text-shadow: 0 0 15px rgba(255,51,51,0.8);
+            color: #e0a878;
+            text-shadow: 0 0 15px rgba(205, 127, 50, 0.8);
             text-align: center;
             margin-bottom: 15px;
             flex-shrink: 0;
         }
 
         .area-card {
-            background: rgba(0,0,0,0.9);
-            border: 2px solid #ff3333;
+            background: rgba(30, 20, 15, 0.9);
+            border: 2px solid #cd7f32;
             padding: 15px;
             margin-bottom: 15px;
             flex-shrink: 0;
         }
         .section-title {
-            color: #ff3333;
+            color: #e0a878;
             margin-bottom: 10px;
             font-size: 16px;
             letter-spacing: 2px;
@@ -163,8 +166,8 @@
         .image-container {
             width: 100%;
             aspect-ratio: 4/3;
-            background: #111;
-            border: 1px solid #ff3333;
+            background: #1a120e;
+            border: 1px solid #cd7f32;
             overflow: hidden;
             margin-bottom: 10px;
         }
@@ -180,22 +183,26 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #666;
-            background: #0a0a0a;
+            color: #8b6946;
+            background: #251a13;
         }
-        .placeholder i { font-size: 40px; color: #ff3333; opacity: 0.5; }
+        .placeholder i { font-size: 40px; color: #cd7f32; opacity: 0.5; }
 
         .similarity-meter {
             margin-top: 10px;
             padding: 10px;
-            background: rgba(255,51,51,0.1);
-            border: 1px solid #ff3333;
+            background: rgba(205, 127, 50, 0.1);
+            border: 1px solid #cd7f32;
+        }
+        .meter-label {
+            color: #e0a878;
+            margin-bottom: 5px;
         }
         .meter-bar {
             width: 100%;
             height: 12px;
-            background: #111;
-            border: 1px solid #ff3333;
+            background: #1a120e;
+            border: 1px solid #cd7f32;
             overflow: hidden;
             margin: 5px 0;
         }
@@ -203,15 +210,15 @@
             height: 100%;
             transition: width 0.3s ease;
         }
-        .meter-fill.high { background: #00ff00; }
-        .meter-fill.medium { background: #ff9900; }
-        .meter-fill.low { background: #ff3333; }
+        .meter-fill.high { background: #e0a878; }
+        .meter-fill.medium { background: #cd7f32; }
+        .meter-fill.low { background: #b87333; }
 
         .btn {
             width: 100%;
             padding: 15px;
             font-size: 16px;
-            border: 2px solid #ff3333;
+            border: 2px solid #cd7f32;
             background: transparent;
             color: white;
             cursor: pointer;
@@ -222,7 +229,7 @@
             margin-top: 10px;
             -webkit-appearance: none;
         }
-        .btn:active { background: #ff3333; color: black; transform: scale(0.98); }
+        .btn:active { background: #cd7f32; color: black; transform: scale(0.98); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         #video {
@@ -250,12 +257,12 @@
             z-index: 100;
         }
         .back-button a {
-            color: #ff3333;
+            color: #cd7f32;
             text-decoration: none;
-            border: 1px solid #ff3333;
+            border: 1px solid #cd7f32;
             padding: 8px 12px;
             font-size: 12px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(30, 20, 15, 0.8);
         }
 
         .bottom-buttons {
@@ -269,8 +276,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.95);
-            border: 2px solid #ff3333;
+            background: rgba(30, 20, 15, 0.95);
+            border: 2px solid #cd7f32;
             padding: 15px 25px;
             font-size: 16px;
             z-index: 1000;
@@ -293,8 +300,8 @@
             0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}
         }
 
-        #cameraStatus.online { color: #00ff00; }
-        #cameraStatus.offline { color: #ff3333; }
+        #cameraStatus.online { color: #e0a878; }
+        #cameraStatus.offline { color: #cd7f32; }
     </style>
 </head>
 <body>
@@ -307,18 +314,18 @@
     <div class="game-container">
         <div class="status-bar">
             <div class="level-info">
-                <span id="currentLocation">GATE</span>
+                <span id="currentLocation">CAFE</span>
             </div>
             <div class="timer" id="timer">--</div>
         </div>
 
         <div class="energy-container">
-            <div class="energy-label"><span>⚡ NEGATIVE ENERGY</span><span id="energyPercent">100%</span></div>
-            <div class="energy-bar-bg"><div class="energy-fill" id="energyFill" style="width: 100%"></div></div>
+            <div class="energy-label"><span>⚡ NEGATIVE ENERGY</span><span id="energyPercent">60%</span></div>
+            <div class="energy-bar-bg"><div class="energy-fill" id="energyFill" style="width: 60%"></div></div>
         </div>
 
         <div class="location-header" id="locationHeader" style="display: none;">
-            <div class="location-name">🏛️ GATE AREA</div>
+            <div class="location-name">☕ CAFE AREA</div>
             <div class="level-badge" id="levelInfo">LEVEL 1/5 | TIME: 5:00</div>
         </div>
 
@@ -333,7 +340,7 @@
         <div class="similarity-meter" id="similarityMeter" style="display:none">
             <div class="meter-label">MATCH RATE</div>
             <div class="meter-bar"><div class="meter-fill" id="similarityFill" style="width:0%"></div></div>
-            <div id="similarityText" style="text-align:center; margin-top:5px; color:#ff3333">0%</div>
+            <div id="similarityText" style="text-align:center; margin-top:5px; color:#e0a878">0%</div>
         </div>
 
         <div class="area-card" id="cameraArea" style="display: none;">
@@ -354,10 +361,10 @@
             <button class="btn" id="nextLevelBtn" onclick="nextLevel()" style="display:none">⏭ NEXT LEVEL</button>
         </div>
         
-        <div class="area-card" id="gateIntroCard">
-            <div class="section-title">📍 GATE AREA</div>
+        <div class="area-card" id="cafeIntroCard">
+            <div class="section-title">📍 CAFE AREA</div>
             <div class="image-container">
-                <img id="gateImage" src="https://i.postimg.cc/WDxcZcLw/IMG-9842.jpg" alt="GATE">
+                <img id="cafeImage" src="https://i.postimg.cc/fJ7ZjFSX/IMG-9835.jpg" alt="CAFE">
             </div>
             <button class="btn" id="startMatchingBtn" onclick="startMatching()">▶ START MATCHING</button>
         </div>
@@ -366,15 +373,17 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        // ========== 遊戲設定 ==========
+        // ========== 第三關卡設定 ==========
+        // CAFE 場地的5個 level 圖片 (從提供的連結中選取5張)
         const LEVEL_IMAGES = [
-            "https://i.postimg.cc/ThffJG5g/IMG-9773.jpg",
-            "https://i.postimg.cc/3k4TxxVs/IMG-9775.jpg",
-            "https://i.postimg.cc/5XYV22TG/IMG-9776.jpg",
-            "https://i.postimg.cc/pmhHLL3x/IMG-9778.jpg",
-            "https://i.postimg.cc/K16ykyyF/IMG-9779.jpg"
+            "https://i.postimg.cc/YGty7nqQ/IMG-9809.jpg",
+            "https://i.postimg.cc/kVQhk39t/IMG-9811.jpg",
+            "https://i.postimg.cc/cvVVpB3S/IMG-9812.jpg",
+            "https://i.postimg.cc/9wFSdx6F/IMG-9813.jpg",
+            "https://i.postimg.cc/7fQvVkYG/IMG-9815.jpg"
         ];
         
+        // 每關限時 (秒)
         const LEVEL_TIMES = [300, 240, 180, 120, 60];
         
         // 每關最多扣除4%負能量
@@ -382,21 +391,21 @@
         
         // 根據相似度計算扣除百分比 (最高4%)
         function getReductionBySimilarity(similarity) {
-            if (similarity >= 95) return 4.0;      // 完美匹配 - 4%
-            if (similarity >= 90) return 3.5;      // 極佳 - 3.5%
-            if (similarity >= 85) return 3.0;      // 優秀 - 3%
-            if (similarity >= 80) return 2.5;      // 良好 - 2.5%
-            if (similarity >= 75) return 2.0;      // 不錯 - 2%
-            if (similarity >= 70) return 1.5;      // 一般 - 1.5%
-            if (similarity >= 65) return 1.0;      // 及格 - 1%
-            if (similarity >= 60) return 0.5;      // 勉強 - 0.5%
-            return 0;                               // 0% 不扣除
+            if (similarity >= 95) return 4.0;
+            if (similarity >= 90) return 3.5;
+            if (similarity >= 85) return 3.0;
+            if (similarity >= 80) return 2.5;
+            if (similarity >= 75) return 2.0;
+            if (similarity >= 70) return 1.5;
+            if (similarity >= 65) return 1.0;
+            if (similarity >= 60) return 0.5;
+            return 0;
         }
         
         // 遊戲狀態
         let gameState = {
             currentLevel: 1,
-            energy: 100,
+            energy: 60,                    // 第三關從60%開始
             timer: 0,
             timerInterval: null,
             camera: null,
@@ -423,14 +432,14 @@
         const levelInfo = document.getElementById('levelInfo');
         const energyFill = document.getElementById('energyFill');
         const energyPercent = document.getElementById('energyPercent');
-        const gateIntroCard = document.getElementById('gateIntroCard');
+        const cafeIntroCard = document.getElementById('cafeIntroCard');
         const locationHeader = document.getElementById('locationHeader');
         const challengeArea = document.getElementById('challengeArea');
         const cameraArea = document.getElementById('cameraArea');
         
         // ========== 開始匹配 ==========
         async function startMatching() {
-            gateIntroCard.style.display = 'none';
+            cafeIntroCard.style.display = 'none';
             locationHeader.style.display = 'block';
             challengeArea.style.display = 'block';
             cameraArea.style.display = 'block';
@@ -452,7 +461,7 @@
                 canvas.height = video.videoHeight;
                 gameState.cameraActive = true;
                 document.getElementById('cameraStatus').textContent = 'ONLINE';
-                document.getElementById('cameraStatus').style.color = '#00ff00';
+                document.getElementById('cameraStatus').style.color = '#e0a878';
                 takePhotoBtn.disabled = false;
                 showToast("✅ CAMERA READY");
             } catch (error) {
@@ -511,7 +520,7 @@
             const secs = gameState.timer % 60;
             timerDisplay.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
             if (gameState.timer <= 10) timerDisplay.style.color = "#ff9900";
-            else timerDisplay.style.color = "#ff3333";
+            else timerDisplay.style.color = "#e0a878";
         }
         
         function handleTimeout() {
@@ -540,21 +549,12 @@
         
         // 計算相似度
         function calculateSimilarity() {
-            // 模擬真實圖片比對 - 讓玩家可以嘗試多次
-            // 每次拍照相似度會在合理範圍內變動
-            let similarity;
-            
-            // 如果玩家之前已經提交過，提示不能重複
             if (gameState.isSubmitted) return;
             
-            // 模擬真實拍攝匹配：根據玩家調整角度，相似度會變化
-            // 隨機基礎值 40-80，鼓勵玩家多次嘗試找到最佳角度
+            // 模擬真實拍攝匹配
             const baseSimilarity = 40 + Math.random() * 50;
-            
-            // 如果玩家嘗試多次，給予小獎勵 (模擬找到更好角度)
             const attemptBonus = Math.min(15, Math.floor(Math.random() * 20));
-            
-            similarity = Math.min(98, baseSimilarity + attemptBonus);
+            let similarity = Math.min(98, baseSimilarity + attemptBonus);
             similarity = Math.floor(similarity);
             
             gameState.currentSimilarity = similarity;
@@ -563,7 +563,6 @@
             // 無論相似度多少都可以提交
             submitBtn.disabled = false;
             
-            // 根據相似度顯示不同提示
             if (similarity >= 90) {
                 showToast(`✅ EXCELLENT! ${similarity}% - READY TO SUBMIT`);
             } else if (similarity >= 70) {
@@ -585,26 +584,19 @@
             else similarityFill.className = 'meter-fill low';
         }
         
-        // 提交匹配 - 無論相似度多少都可以提交，但根據相似度決定扣除量
+        // 提交匹配
         function submitMatch() {
             if (gameState.isSubmitted) return;
             
-            // 根據相似度計算扣除百分比（最高4%）
             let reduction = getReductionBySimilarity(gameState.currentSimilarity);
-            
-            // 加上時間獎勵（時間剩餘越多，額外獎勵，但不超過4%總和）
             const timeBonus = Math.min(1.5, Math.floor(gameState.timer / 120));
             let totalReduction = reduction + timeBonus;
-            
-            // 確保不超過每關最大扣除4%
             totalReduction = Math.min(MAX_REDUCTION_PER_LEVEL, totalReduction);
             totalReduction = Math.min(gameState.energy, totalReduction);
             
-            // 更新能量
             gameState.energy = Math.max(0, gameState.energy - totalReduction);
             updateEnergyBar();
             
-            // 顯示結果訊息
             let gradeText = "";
             let messageColor = "info";
             
@@ -635,7 +627,6 @@
             
             if (gameState.timerInterval) clearInterval(gameState.timerInterval);
             
-            // 檢查是否通關
             if (gameState.currentLevel === 5) {
                 if (gameState.energy <= 0) {
                     showToast("🏆 ALL LEVELS CLEARED! NEGATIVE ENERGY ELIMINATED!");
@@ -653,8 +644,8 @@
         function updateEnergyBar() {
             energyFill.style.width = gameState.energy + '%';
             energyPercent.textContent = Math.floor(gameState.energy) + '%';
-            if (gameState.energy <= 30) energyFill.style.background = "linear-gradient(90deg, #ff9900, #ffff00)";
-            if (gameState.energy <= 10) energyFill.style.background = "#00ff00";
+            if (gameState.energy <= 30) energyFill.style.background = "linear-gradient(90deg, #e0a878, #cd7f32)";
+            if (gameState.energy <= 10) energyFill.style.background = "#e0a878";
         }
         
         // 下一關
@@ -682,9 +673,9 @@
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.className = 'toast show';
-            if (type === "error") toast.style.background = "rgba(255,51,51,0.9)";
+            if (type === "error") toast.style.background = "rgba(139, 69, 19, 0.9)";
             else if (type === "warning") toast.style.background = "rgba(255,153,0,0.9)";
-            else toast.style.background = "rgba(0,255,0,0.9)";
+            else toast.style.background = "rgba(205, 127, 50, 0.9)";
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
         
