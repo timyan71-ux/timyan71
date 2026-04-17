@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Match AR! - CAFE MISSION</title>
     <style>
-        /* 像素風格字體：使用 Press Start 2P 或 VT323 作為基底，搭配 monospace 加強復古感 */
+        /* 像素風格字體：使用 Press Start 2P 與 VT323 混搭，加強復古遊戲感 */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            image-rendering: crisp-edges;      /* 像素風銳利邊緣 */
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
+            /* 圖片保留自然平滑，不再強制 pixelated (減輕像素濾鏡) */
         }
 
         html, body {
@@ -22,24 +20,23 @@
             height: 100%;
             overflow: hidden;
             position: fixed;
-            /* 主要字體用 Press Start 2P (小字體較難閱讀時輔以 VT323) */
             font-family: 'Press Start 2P', 'VT323', monospace;
-            background: #2E1E12;  /* 深焙咖啡底色 */
-            color: #F3E9DC;       /* 奶油白文字 */
+            background: #2E1E12;  /* 深焙咖啡色基底 */
+            color: #F3E9DC;       /* 奶油白 */
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* 暖甜點色調 + 像素風背景：格紋質感 */
+        /* 暖甜點色調背景 + 輕度像素網格 (保留風格但不壓迫圖片) */
         .cyber-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #5E3023;  /* 布朗尼基底 */
+            background: #5E3023;  /* 布朗尼色 */
             z-index: -2;
         }
-        /* 像素網格疊加，製造復古螢幕感 */
+        /* 柔和網格，不影響主要圖片視覺 */
         .cyber-bg::after {
             content: "";
             position: fixed;
@@ -50,33 +47,33 @@
             background-image: 
                 linear-gradient(to right, #895737 1px, transparent 1px),
                 linear-gradient(to bottom, #895737 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.2;
+            background-size: 24px 24px;
+            opacity: 0.15;
             pointer-events: none;
             z-index: -1;
         }
 
-        /* 暖色能量波動，保留但改成焦糖色調 */
+        /* 焦糖色能量波動 */
         .energy-wave {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(192, 133, 82, 0.25) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(192, 133, 82, 0.2) 0%, transparent 70%);
             animation: energyPulse 4s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
         }
 
-        /* 掃描線維持，換成焦糖色 */
+        /* 掃描線 - 維持像素感但半透明 */
         .scan-line {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(192, 133, 82, 0.12) 0px, rgba(192, 133, 82, 0.12) 2px, transparent 2px, transparent 6px);
+            background: repeating-linear-gradient(0deg, rgba(192, 133, 82, 0.08) 0px, rgba(192, 133, 82, 0.08) 2px, transparent 2px, transparent 6px);
             pointer-events: none;
             z-index: 10;
         }
@@ -95,7 +92,7 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* 像素風格邊框 (雙層模擬像素塊) */
+        /* 像素邊框風格 (經典雙層邊框) */
         .pixel-border {
             border: 4px solid #C08552;
             box-shadow: inset 0 0 0 1px #F3E9DC, 0 0 0 2px #5E3023;
@@ -153,8 +150,7 @@
             width: 100%;
             height: 100%;
             background: repeating-linear-gradient(90deg, #C08552, #DBA471, #C08552);
-            transition: width 0.2s step-end;  /* 像素感過渡 */
-            image-rendering: crisp-edges;
+            transition: width 0.2s ease;
         }
 
         .location-header {
@@ -214,15 +210,15 @@
             border: 3px solid #C08552;
             overflow: hidden;
             margin-bottom: 12px;
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
+            /* 移除強制 pixelated，讓圖片呈現自然平滑 */
+            image-rendering: auto;
         }
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            image-rendering: crisp-edges;
+            image-rendering: auto;  /* 自然平滑，不強制像素化 */
         }
         .placeholder {
             width: 100%;
@@ -258,7 +254,7 @@
         }
         .meter-fill {
             height: 100%;
-            transition: width 0.15s steps(8);
+            transition: width 0.15s ease;
         }
         .meter-fill.high { background: #C08552; box-shadow: inset 0 0 6px #F3E9DC; }
         .meter-fill.medium { background: #895737; }
@@ -359,11 +355,11 @@
             color: #F3E9DC;
             box-shadow: 8px 8px 0 #2E1E12;
         }
-        .toast.show { display: block; animation: fadeIn 0.2s steps(4); }
+        .toast.show { display: block; animation: fadeIn 0.2s ease; }
 
         @keyframes energyPulse {
             0%, 100% { opacity: 0.35; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.02); }
+            50% { opacity: 0.6; transform: scale(1.02); }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
@@ -377,7 +373,7 @@
         #cameraStatus.online { color: #C08552; }
         #cameraStatus.offline { color: #F3E9DC; background: #5E3023; display: inline-block; padding: 2px 6px; }
 
-        /* 調整滾動條為像素風 */
+        /* 滾動條風格保留像素感但不過度 */
         ::-webkit-scrollbar {
             width: 12px;
             background: #2E1E12;
@@ -457,7 +453,7 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        // ========== 第三關卡設定 (完全不變更原遊戲邏輯，僅改顏色與風格) ==========
+        // ========== 遊戲邏輯完全不變，維持原始機制 ==========
         const LEVEL_IMAGES = [
             "https://i.postimg.cc/YGty7nqQ/IMG-9809.jpg",
             "https://i.postimg.cc/kVQhk39t/IMG-9811.jpg",
