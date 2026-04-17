@@ -13,7 +13,6 @@
             box-sizing: border-box;
             image-rendering: crisp-edges;
             image-rendering: pixelated;
-            image-rendering: pixelated;
         }
 
         html, body {
@@ -22,23 +21,23 @@
             overflow: hidden;
             position: fixed;
             font-family: 'Press Start 2P', 'Courier New', monospace;
-            background: #2A1F1A;
-            color: #F3E9DC;
+            background: #F5EDE4;
+            color: #4A3428;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Pixel background with retro pattern */
+        /* Light pixel background */
         .pixel-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #2A1F1A;
+            background: #F5EDE4;
             z-index: -2;
         }
         
-        /* Pixel dithering pattern overlay */
+        /* Light dithering pattern overlay */
         .pixel-bg::after {
             content: "";
             position: fixed;
@@ -47,15 +46,15 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(45deg, #3A2A22 1px, transparent 1px),
-                linear-gradient(-45deg, #3A2A22 1px, transparent 1px);
+                linear-gradient(45deg, #E8DDD0 1px, transparent 1px),
+                linear-gradient(-45deg, #E8DDD0 1px, transparent 1px);
             background-size: 8px 8px;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.4;
             z-index: -1;
         }
 
-        /* Pixel block pattern animation */
+        /* Pixel wave pattern */
         .pixel-wave {
             position: fixed;
             top: 0;
@@ -66,8 +65,8 @@
                 0deg,
                 transparent,
                 transparent 4px,
-                rgba(192, 133, 82, 0.08) 4px,
-                rgba(192, 133, 82, 0.08) 8px
+                rgba(192, 133, 82, 0.06) 4px,
+                rgba(192, 133, 82, 0.06) 8px
             );
             pointer-events: none;
             z-index: -1;
@@ -80,8 +79,8 @@
             width: 100%;
             height: 100%;
             background: repeating-linear-gradient(0deg, 
-                rgba(243, 233, 220, 0.05) 0px, 
-                rgba(243, 233, 220, 0.05) 2px, 
+                rgba(74, 52, 40, 0.03) 0px, 
+                rgba(74, 52, 40, 0.03) 2px, 
                 transparent 2px, 
                 transparent 4px);
             pointer-events: none;
@@ -102,28 +101,14 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* PIXEL BORDERS - using box-shadow for pixelated effect */
-        .pixel-border {
-            border: none;
-            box-shadow: 
-                inset 0 0 0 2px #F3E9DC,
-                0 0 0 2px #5E3023;
-        }
-        
-        .pixel-border-light {
-            border: none;
-            box-shadow: 
-                inset 0 0 0 2px #C08552,
-                0 0 0 2px #3A2A22;
-        }
-
+        /* Light pixel borders */
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 15px;
-            background: #3A2A22;
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 2px #5E3023;
+            background: #FFF8F0;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 2px #C08552;
             margin-bottom: 15px;
             position: relative;
             flex-shrink: 0;
@@ -134,9 +119,9 @@
             position: absolute;
             top: -8px;
             left: 10px;
-            background: #2A1F1A;
+            background: #F5EDE4;
             padding: 0 8px;
-            color: #F3E9DC;
+            color: #C08552;
             font-size: 8px;
             font-family: 'Press Start 2P', monospace;
         }
@@ -150,35 +135,35 @@
             justify-content: space-between;
             font-size: 9px;
             margin-bottom: 6px;
-            color: #F3E9DC;
+            color: #4A3428;
             font-family: 'Press Start 2P', monospace;
         }
         .energy-bar-bg {
             width: 100%;
             height: 16px;
-            background: #2A1F1A;
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 1px #5E3023;
+            background: #E8DDD0;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 1px #C08552;
             overflow: hidden;
         }
         .energy-fill {
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(90deg, #C08552, #C08552 8px, #895737 8px, #895737 16px);
+            background: repeating-linear-gradient(90deg, #C08552, #C08552 8px, #D4A574 8px, #D4A574 16px);
             transition: width 0.3s steps(10);
         }
 
         .location-header {
             text-align: center;
             padding: 15px;
-            background: rgba(58, 42, 34, 0.9);
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 2px #5E3023;
+            background: #FFF8F0;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 2px #C08552;
             margin-bottom: 15px;
             flex-shrink: 0;
         }
         .location-name {
             font-size: 14px;
             letter-spacing: 1px;
-            color: #F3E9DC;
+            color: #4A3428;
             font-family: 'Press Start 2P', monospace;
         }
         .level-badge {
@@ -191,8 +176,8 @@
         .timer {
             font-size: 28px;
             font-weight: 400;
-            color: #F3E9DC;
-            text-shadow: 3px 3px 0 #5E3023;
+            color: #4A3428;
+            text-shadow: 3px 3px 0 #D4B896;
             text-align: center;
             margin-bottom: 15px;
             flex-shrink: 0;
@@ -201,14 +186,14 @@
         }
 
         .area-card {
-            background: rgba(58, 42, 34, 0.95);
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 2px #5E3023;
+            background: #FFF8F0;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 2px #C08552;
             padding: 15px;
             margin-bottom: 15px;
             flex-shrink: 0;
         }
         .section-title {
-            color: #F3E9DC;
+            color: #4A3428;
             margin-bottom: 12px;
             font-size: 10px;
             letter-spacing: 1px;
@@ -217,8 +202,8 @@
         .image-container {
             width: 100%;
             aspect-ratio: 4/3;
-            background: #2A1F1A;
-            box-shadow: inset 0 0 0 2px #895737, 0 0 0 1px #5E3023;
+            background: #F5EDE4;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 1px #C08552;
             overflow: hidden;
             margin-bottom: 10px;
             image-rendering: crisp-edges;
@@ -237,21 +222,21 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #895737;
-            background: #3A2A22;
+            color: #B8956E;
+            background: #F5EDE4;
             font-family: 'Press Start 2P', monospace;
             font-size: 10px;
         }
-        .placeholder i { font-size: 32px; color: #C08552; opacity: 0.6; }
+        .placeholder i { font-size: 32px; color: #C08552; opacity: 0.5; }
 
         .similarity-meter {
             margin-top: 10px;
             padding: 10px;
-            background: rgba(58, 42, 34, 0.8);
-            box-shadow: inset 0 0 0 1px #C08552;
+            background: #FEF8F0;
+            box-shadow: inset 0 0 0 1px #D4B896;
         }
         .meter-label {
-            color: #F3E9DC;
+            color: #4A3428;
             margin-bottom: 5px;
             font-size: 8px;
             font-family: 'Press Start 2P', monospace;
@@ -259,8 +244,8 @@
         .meter-bar {
             width: 100%;
             height: 12px;
-            background: #2A1F1A;
-            box-shadow: inset 0 0 0 1px #895737;
+            background: #E8DDD0;
+            box-shadow: inset 0 0 0 1px #D4B896;
             overflow: hidden;
             margin: 5px 0;
         }
@@ -268,32 +253,32 @@
             height: 100%;
             transition: width 0.2s steps(8);
         }
-        .meter-fill.high { background: #F3E9DC; }
-        .meter-fill.medium { background: #C08552; }
-        .meter-fill.low { background: #895737; }
+        .meter-fill.high { background: #C08552; }
+        .meter-fill.medium { background: #D4A574; }
+        .meter-fill.low { background: #E8C9A0; }
 
         .btn {
             width: 100%;
             padding: 12px;
             font-size: 10px;
             border: none;
-            background: #3A2A22;
-            color: #F3E9DC;
+            background: #FFF8F0;
+            color: #4A3428;
             cursor: pointer;
             font-weight: normal;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: all 0.1s steps(2);
             font-family: 'Press Start 2P', monospace;
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 2px #5E3023;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 2px #C08552;
             margin-top: 10px;
             -webkit-appearance: none;
         }
         .btn:active { 
-            background: #5E3023; 
-            color: #F3E9DC;
+            background: #E8DDD0; 
+            color: #4A3428;
             transform: translate(2px, 2px);
-            box-shadow: inset 0 0 0 2px #F3E9DC, 0 0 0 1px #5E3023;
+            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 1px #D4B896;
         }
         .btn:disabled { 
             opacity: 0.5; 
@@ -326,13 +311,13 @@
             z-index: 100;
         }
         .back-button a {
-            color: #F3E9DC;
+            color: #4A3428;
             text-decoration: none;
             font-family: 'Press Start 2P', monospace;
             font-size: 8px;
             padding: 8px 10px;
-            background: #3A2A22;
-            box-shadow: inset 0 0 0 2px #C08552, 0 0 0 1px #5E3023;
+            background: #FFF8F0;
+            box-shadow: inset 0 0 0 2px #D4B896, 0 0 0 1px #C08552;
         }
         .back-button a:active {
             transform: translate(2px, 2px);
@@ -349,8 +334,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #3A2A22;
-            box-shadow: inset 0 0 0 3px #C08552, 0 0 0 3px #5E3023;
+            background: #FFF8F0;
+            box-shadow: inset 0 0 0 3px #D4B896, 0 0 0 3px #C08552;
             padding: 12px 20px;
             font-size: 9px;
             z-index: 1000;
@@ -358,7 +343,7 @@
             text-align: center;
             white-space: nowrap;
             font-family: 'Press Start 2P', monospace;
-            color: #F3E9DC;
+            color: #4A3428;
         }
         .toast.show { display: block; animation: fadeIn 0.2s steps(4); }
 
@@ -371,29 +356,20 @@
             0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}
         }
 
-        #cameraStatus.online { color: #F3E9DC; }
-        #cameraStatus.offline { color: #C08552; }
+        #cameraStatus.online { color: #C08552; }
+        #cameraStatus.offline { color: #B8956E; }
 
-        /* pixel corners decoration */
-        .pixel-corner {
-            position: fixed;
-            width: 16px;
-            height: 16px;
-            pointer-events: none;
-            z-index: 20;
-        }
-        
-        /* custom scrollbar pixel style */
+        /* Custom scrollbar light pixel style */
         .game-container::-webkit-scrollbar {
             width: 12px;
         }
         .game-container::-webkit-scrollbar-track {
-            background: #2A1F1A;
-            box-shadow: inset 0 0 0 1px #5E3023;
+            background: #E8DDD0;
+            box-shadow: inset 0 0 0 1px #D4B896;
         }
         .game-container::-webkit-scrollbar-thumb {
             background: #C08552;
-            box-shadow: inset 0 0 0 1px #F3E9DC;
+            box-shadow: inset 0 0 0 1px #FFF8F0;
         }
     </style>
 </head>
@@ -433,7 +409,7 @@
         <div class="similarity-meter" id="similarityMeter" style="display:none">
             <div class="meter-label">MATCH RATE</div>
             <div class="meter-bar"><div class="meter-fill" id="similarityFill" style="width:0%"></div></div>
-            <div id="similarityText" style="text-align:center; margin-top:5px; color:#F3E9DC; font-size:8px">0%</div>
+            <div id="similarityText" style="text-align:center; margin-top:5px; color:#4A3428; font-size:8px">0%</div>
         </div>
 
         <div class="area-card" id="cameraArea" style="display: none;">
@@ -498,7 +474,7 @@
         // 遊戲狀態
         let gameState = {
             currentLevel: 1,
-            energy: 60,                    // 第三關從60%開始
+            energy: 60,
             timer: 0,
             timerInterval: null,
             camera: null,
@@ -554,7 +530,7 @@
                 canvas.height = video.videoHeight;
                 gameState.cameraActive = true;
                 document.getElementById('cameraStatus').textContent = 'ONLINE';
-                document.getElementById('cameraStatus').style.color = '#F3E9DC';
+                document.getElementById('cameraStatus').style.color = '#C08552';
                 takePhotoBtn.disabled = false;
                 showToast("✅ CAMERA READY");
             } catch (error) {
@@ -613,7 +589,7 @@
             const secs = gameState.timer % 60;
             timerDisplay.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
             if (gameState.timer <= 10) timerDisplay.style.color = "#C08552";
-            else timerDisplay.style.color = "#F3E9DC";
+            else timerDisplay.style.color = "#4A3428";
         }
         
         function handleTimeout() {
@@ -644,7 +620,6 @@
         function calculateSimilarity() {
             if (gameState.isSubmitted) return;
             
-            // 模擬真實拍攝匹配
             const baseSimilarity = 40 + Math.random() * 50;
             const attemptBonus = Math.min(15, Math.floor(Math.random() * 20));
             let similarity = Math.min(98, baseSimilarity + attemptBonus);
@@ -653,7 +628,6 @@
             gameState.currentSimilarity = similarity;
             displaySimilarity(similarity);
             
-            // 無論相似度多少都可以提交
             submitBtn.disabled = false;
             
             if (similarity >= 90) {
@@ -737,8 +711,8 @@
         function updateEnergyBar() {
             energyFill.style.width = gameState.energy + '%';
             energyPercent.textContent = Math.floor(gameState.energy) + '%';
-            if (gameState.energy <= 30) energyFill.style.background = "repeating-linear-gradient(90deg, #C08552, #C08552 8px, #895737 8px, #895737 16px)";
-            if (gameState.energy <= 10) energyFill.style.background = "#F3E9DC";
+            if (gameState.energy <= 30) energyFill.style.background = "repeating-linear-gradient(90deg, #D4A574, #D4A574 8px, #C08552 8px, #C08552 16px)";
+            if (gameState.energy <= 10) energyFill.style.background = "#C08552";
         }
         
         // 下一關
@@ -766,9 +740,9 @@
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.className = 'toast show';
-            if (type === "error") toast.style.background = "#5E3023";
-            else if (type === "warning") toast.style.background = "#895737";
-            else toast.style.background = "#3A2A22";
+            if (type === "error") toast.style.background = "#E8DDD0";
+            else if (type === "warning") toast.style.background = "#FFF0E0";
+            else toast.style.background = "#FFF8F0";
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
         
