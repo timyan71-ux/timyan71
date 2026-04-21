@@ -25,12 +25,12 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: var(--cream);
+            background-color: transparent;  /* 背景透明，讓 cafe.png 完整顯示 */
             font-family: 'VT323', monospace;
             touch-action: manipulation;
         }
 
-        /* 背景圖片 cafe.png */
+        /* 背景圖片 cafe.png - 完整顯示，無額外顏色覆蓋 */
         .background {
             position: fixed;
             top: 0;
@@ -72,13 +72,14 @@
             z-index: 10;
         }
 
-        /* 對話框 - 暖甜點色調 (奶油基底 + 焦糖邊框) */
+        /* 對話框 - 暖甜點色調 (奶油基底 + 焦糖邊框) - 僅對話框本身有背景色 */
         .pixel-dialogue {
             position: absolute;
             bottom: 30px;
             left: 5%;
             width: 90%;
             min-height: 140px;
+            background: var(--cream);
             border: 4px solid var(--caramel);
             box-shadow: 
                 0 4px 0 -1px var(--brownie),
@@ -181,7 +182,7 @@
 </head>
 <body onclick="handleScreenClick()">
 
-    <!-- 背景 cafe.png -->
+    <!-- 背景 cafe.png - 完整顯示無覆蓋 -->
     <div class="background"></div>
 
     <!-- 角色區：左側食咩狗，右側書蟲 -->
@@ -190,7 +191,7 @@
         <img id="bookworm" class="character" src="書蟲01-norm.png" alt="Bookworm">
     </div>
 
-    <!-- 對話框 -->
+    <!-- 對話框 (僅對話框有暖甜點背景色) -->
     <div class="pixel-dialogue" id="dialogue-box">
         <div class="name-tag" id="speaker-name">食咩狗</div>
         <div class="message" id="message-text">Coffee is not enough... I'm starving.</div>
