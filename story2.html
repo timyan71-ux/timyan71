@@ -227,26 +227,6 @@
             line-height: 1.3;
             margin: 15px 0;
         }
-
-        .close-button {
-            background: var(--caramel);
-            border: 4px solid var(--brownie);
-            color: var(--cream);
-            font-size: 28px;
-            font-weight: bold;
-            padding: 8px 30px;
-            margin-top: 15px;
-            cursor: pointer;
-            font-family: 'VT323', monospace;
-            transition: 0.05s linear;
-            display: inline-block;
-            box-shadow: 4px 4px 0 var(--coffee);
-        }
-
-        .close-button:active {
-            transform: translate(3px, 3px);
-            box-shadow: 1px 1px 0 var(--coffee);
-        }
     </style>
 </head>
 <body onclick="handleScreenClick()">
@@ -267,7 +247,7 @@
         <div class="next-hint">TAP TO NEXT ➔</div>
     </div>
 
-    <!-- 獎勵彈窗 - 加入閃光效果 -->
+    <!-- 獎勵彈窗 - 無 CONTINUE 按鈕 -->
     <div id="rewardOverlay" class="reward-overlay">
         <div class="reward-modal">
             <div class="glow-image">
@@ -290,7 +270,7 @@
                 Please keep it until the final war with the villain…<br>
                 Please move to the next location.
             </div>
-            <button class="close-button" id="closeBtn">➡ CONTINUE</button>
+            <!-- CONTINUE 按鈕已移除 -->
         </div>
     </div>
 
@@ -345,28 +325,22 @@
             }
         }
 
-        // 顯示獎勵彈窗
+        // 顯示獎勵彈窗 (無關閉按鈕，持續顯示)
         function showRewardModal() {
             rewardShown = true;
             const overlay = document.getElementById('rewardOverlay');
             overlay.style.display = 'flex';
-            
-            // 綁定關閉按鈕
-            const closeBtn = document.getElementById('closeBtn');
-            closeBtn.onclick = function() {
-                overlay.style.display = 'none';
-                // 可選擇是否跳轉到下一頁，目前停留在當前頁面
-                // 如需跳轉可取消註解：
-                // window.location.href = 'next.html';
-            };
+            // 沒有關閉按鈕，彈窗會一直顯示
+            // 可根據需求在點擊彈窗或點擊背景時關閉
         }
 
-        // 點擊畫面觸發下一句
+        // 點擊畫面觸發下一句 (對話階段)
         function handleScreenClick() {
             if (!storyFinished && !rewardShown) {
                 currentLine++;
                 updateUI();
             }
+            // 如果彈窗已顯示，點擊對話框不會關閉彈窗
         }
 
         // 預載角色圖片
