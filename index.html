@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SYSTEM ERROR: Queue Portal</title>
+  <title>SYSTEM PORTAL: Step-by-Step Priority Access</title>
   <style>
     :root {
       --bg-color: #0f172a;
       --card-bg: #1e293b;
+      --accent-green: #22c55e;
       --accent-red: #ef4444;
       --text-color: #f8fafc;
       --text-muted: #94a3b8;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
     body {
       background-color: var(--bg-color);
@@ -40,210 +36,234 @@
       border: 1px solid #334155;
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .header h1 {
-      font-size: 1.5rem;
-      color: var(--accent-red);
-      margin-bottom: 8px;
-    }
-
-    .header p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn-option {
-      background: #334155;
-      border: 2px solid #475569;
-      color: var(--text-color);
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    /* Progress Tracker */
+    .progress-bar {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      margin-bottom: 24px;
+      position: relative;
     }
 
-    .btn-option:hover {
-      border-color: var(--accent-red);
-      background: #3e4c5e;
-    }
-
-    .badge {
-      font-size: 0.75rem;
-      background: var(--accent-red);
-      padding: 4px 8px;
-      border-radius: 6px;
-      animation: pulse 1.5s infinite;
-    }
-
-    /* Modal Overlay */
-    .overlay {
-      position: fixed;
-      top: 0;
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 50%;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      z-index: 100;
+      height: 2px;
+      background: #334155;
+      z-index: 1;
     }
 
-    .modal {
-      background: var(--card-bg);
-      border: 2px solid var(--accent-red);
-      border-radius: 16px;
-      padding: 30px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid #334155;
-      border-top: 5px solid var(--accent-red);
+    .step-node {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    .error-icon {
-      font-size: 3rem;
-      color: var(--accent-red);
-      margin-bottom: 12px;
-      display: none;
-    }
-
-    .counter {
-      font-size: 1.2rem;
+      background: #334155;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: bold;
-      margin: 12px 0;
-      color: #fbbf24;
+      z-index: 2;
+      transition: all 0.3s ease;
     }
 
-    .btn-retry {
+    .step-node.active {
+      background: var(--accent-green);
+      color: white;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+
+    .step-node.failed {
       background: var(--accent-red);
       color: white;
+    }
+
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+
+    h2 { font-size: 1.25rem; margin-bottom: 12px; color: #f1f5f9; }
+    p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* Forms & Inputs */
+    .form-group { margin-bottom: 16px; text-align: left; }
+    label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: #cbd5e1; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .btn-next {
+      width: 100%;
+      background: var(--accent-green);
+      color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 14px;
       border-radius: 8px;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      margin-top: 16px;
-      display: none;
+      transition: background 0.2s;
+    }
+
+    .btn-next:hover { opacity: 0.9; }
+
+    /* Fake Captcha Box */
+    .captcha-box {
+      border: 1px solid #475569;
+      background: #0f172a;
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .captcha-checkbox {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    /* Loading Bar */
+    .loading-container {
       width: 100%;
+      background: #334155;
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .loading-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-green);
+      transition: width 0.1s linear;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+    .status-msg { font-size: 0.85rem; color: #fbbf24; font-weight: bold; }
+    .error-msg { font-size: 0.9rem; color: var(--accent-red); font-weight: bold; margin-top: 10px; display: none; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header">
-      <h1>⚠️ SYSTEM QUEUE ⚠️</h1>
-      <p>Select an option to proceed with your booking/registration.</p>
+    <!-- Progress Indicator -->
+    <div class="progress-bar">
+      <div class="step-node active" id="node1">1</div>
+      <div class="step-node" id="node2">2</div>
+      <div class="step-node" id="node3">3</div>
     </div>
 
-    <div class="options-grid">
-      <button class="btn-option" onclick="startProcess('VART Course Reg')">
-        📚 Reg VART Course <span class="badge">0 QUOTA LEFT</span>
-      </button>
-      <button class="btn-option" onclick="startProcess('Concert Ticket')">
-        🎤 Taylor Swift Ticket <span class="badge">99k QUEUE</span>
-      </button>
-      <button class="btn-option" onclick="startProcess('Flight Ticket')">
-        ✈️ $0 HK Express Ticket <span class="badge">HIGH TRAFFIC</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="overlay" id="overlay">
-    <div class="modal">
-      <div class="spinner" id="spinner"></div>
-      <div class="error-icon" id="errorIcon">❌</div>
+    <!-- STEP 1: Personal Info & Select -->
+    <div class="step-content active" id="step1">
+      <h2>Step 1: Reserve Your Slot</h2>
+      <p>High demand expected. Enter details to lock your spot in line.</p>
       
-      <h2 id="modalTitle">Connecting to Server...</h2>
-      <div class="counter" id="queueStatus">Position in queue: 9,842</div>
-      <p id="modalDesc" style="color: var(--text-muted); font-size: 0.9rem;">
-        Please do not refresh the page.
-      </p>
+      <div class="form-group">
+        <label>Select Target Target</label>
+        <select id="targetSelect">
+          <option>📚 VART Course Registration (1 Quota Left)</option>
+          <option>🎤 Taylor Swift Concert Ticket (VIP Block)</option>
+          <option>✈️ $0 HK Express Ticket to Tokyo</option>
+        </select>
+      </div>
 
-      <button class="btn-retry" id="retryBtn" onclick="resetModal()">TRY AGAIN (FAIL AGAIN)</button>
+      <div class="form-group">
+        <label>Student ID / Account Email</label>
+        <input type="text" placeholder="e.g. 23224576@life.hkbu.edu.hk" value="23224576@life.hkbu.edu.hk">
+      </div>
+
+      <button class="btn-next" onclick="goToStep(2)">Proceed to Verification ➔</button>
+    </div>
+
+    <!-- STEP 2: Captcha Verification -->
+    <div class="step-content" id="step2">
+      <h2>Step 2: Human Verification</h2>
+      <p>Verify you are not a bot to secure immediate priority access.</p>
+
+      <div class="captcha-box">
+        <input type="checkbox" id="captcha" class="captcha-checkbox" onchange="enableStep3()">
+        <label for="captcha" style="margin:0; cursor:pointer;">I am not a robot (Priority Pass Available)</label>
+      </div>
+
+      <button class="btn-next" id="btnStep2" style="opacity: 0.5; cursor: not-allowed;" disabled onclick="startFinalCheckout()">Enter Queue Portal ➔</button>
+    </div>
+
+    <!-- STEP 3: Progress & Fatal Failure -->
+    <div class="step-content" id="step3">
+      <h2>Step 3: Processing Final Access...</h2>
+      <p>Hold tight! You are almost there. Do not close this page.</p>
+
+      <div class="loading-container">
+        <div class="loading-fill" id="progressFill"></div>
+      </div>
+
+      <div class="status-msg" id="statusText">Allocating quota... (15%)</div>
+      <div class="error-msg" id="errorText">❌ ERROR 404: QUOTA EXPIRED DURING CHECKOUT. SESSION TERMINATED.</div>
+
+      <button class="btn-next" id="btnRestart" style="display:none; background:var(--accent-red); margin-top:20px;" onclick="location.reload()">TRY AGAIN FROM STEP 1</button>
     </div>
   </div>
 
   <script>
-    function startProcess(item) {
-      const overlay = document.getElementById('overlay');
-      const spinner = document.getElementById('spinner');
-      const errorIcon = document.getElementById('errorIcon');
-      const title = document.getElementById('modalTitle');
-      const status = document.getElementById('queueStatus');
-      const desc = document.getElementById('modalDesc');
-      const retryBtn = document.getElementById('retryBtn');
+    function goToStep(stepNumber) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + stepNumber).classList.add('active');
+      document.getElementById('node' + stepNumber).classList.add('active');
+    }
 
-      // Reset state
-      overlay.style.display = 'flex';
-      spinner.style.display = 'block';
-      errorIcon.style.display = 'none';
-      retryBtn.style.display = 'none';
-      title.innerText = "Processing Request...";
-      status.innerText = "Position in queue: " + Math.floor(Math.random() * 5000 + 5000);
-      desc.innerText = "Processing high volume of traffic. Please wait...";
+    function enableStep3() {
+      const btn = document.getElementById('btnStep2');
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+    }
 
-      // Fake queue countdown
-      let currentQueue = 842;
+    function startFinalCheckout() {
+      goToStep(3);
+      
+      const fill = document.getElementById('progressFill');
+      const status = document.getElementById('statusText');
+      const error = document.getElementById('errorText');
+      const restartBtn = document.getElementById('btnRestart');
+      const node3 = document.getElementById('node3');
+
+      let progress = 0;
+
+      // Fake progress logic giving fake hope
       const interval = setInterval(() => {
-        currentQueue -= Math.floor(Math.random() * 200 + 50);
-        if (currentQueue > 50) {
-          status.innerText = "Position in queue: " + currentQueue;
+        progress += Math.floor(Math.random() * 8) + 2;
+
+        if (progress < 50) {
+          status.innerText = `Connecting to high-speed gateway... (${progress}%)`;
+          fill.style.width = progress + '%';
+        } else if (progress >= 50 && progress < 85) {
+          status.innerText = `Securing final seat reservation... (${progress}%)`;
+          fill.style.width = progress + '%';
+        } else if (progress >= 85 && progress < 99) {
+          status.innerText = `Almost done! Finalizing transaction... (${progress}%)`;
+          fill.style.width = progress + '%';
         } else {
+          // Absolute Failure at 99%
           clearInterval(interval);
-          triggerFailure(item);
+          fill.style.width = '99%';
+          fill.style.background = 'var(--accent-red)';
+          status.style.display = 'none';
+          error.style.display = 'block';
+          restartBtn.style.display = 'block';
+          node3.classList.remove('active');
+          node3.classList.add('failed');
         }
-      }, 600);
-    }
-
-    function triggerFailure(item) {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('errorIcon').style.display = 'block';
-      document.getElementById('modalTitle').innerText = "SYSTEM ERROR / FAILED";
-      document.getElementById('queueStatus').innerText = "STATUS: 404 OUT OF QUOTA";
-      document.getElementById('queueStatus').style.color = "#ef4444";
-      document.getElementById('modalDesc').innerText = "Sorry, " + item + " is no longer available. Session timed out.";
-      document.getElementById('retryBtn').style.display = 'block';
-    }
-
-    function resetModal() {
-      document.getElementById('overlay').style.display = 'none';
-      document.getElementById('queueStatus').style.color = "#fbbf24";
+      }, 300);
     }
   </script>
 </body>
